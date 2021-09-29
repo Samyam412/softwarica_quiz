@@ -53,11 +53,11 @@ public class SoftwaricaQuiz extends JFrame implements ActionListener{
         setVisible(true);//makes the screen visible
     }
 
-    SoftwaricaQuiz() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    SoftwaricaQuiz() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
-    public String getUsername(){
+    public static String getUsername(){
 
         return t1.getText();
     }

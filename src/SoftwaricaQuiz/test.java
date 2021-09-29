@@ -1,4 +1,4 @@
 package SoftwaricaQuiz;
 
-public class database {
+public class test {
 }
