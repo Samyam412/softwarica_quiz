@@ -4,10 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Score extends JFrame implements ActionListener{
-    private static int score;
+    public static int score;
+
 
     Score(String username,int score ){
         setBounds(600,150,750,550);
@@ -34,41 +36,37 @@ public class Score extends JFrame implements ActionListener{
 
         add(l3);
 
-        JButton b1 = new JButton("Play Again");
+        JButton b1 = new JButton("Save score");
         b1.setBackground(Color.BLUE);
         b1.setForeground(Color.WHITE);
         b1.setBounds(400,270,120,30);
+        b1.addActionListener(this);
+        add(b1);
 
     }
     public void actionPerformed(ActionEvent ae){
         this.setVisible(false);
-        new SoftwaricaQuiz().setVisible(true);
-        insertDB();
+        //new SoftwaricaQuiz().setVisible(true);
+
+        try {
+            database.insert(score, SoftwaricaQuiz.getUsername());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
+
+
     }
 
-    public void insertDB(){
-        new Score("",0).setVisible(true);
-        Connection connection = null;
-        Statement stmt = null;
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwarica_quiz", "root", "Samyam2896");
-            System.out.println("hello");
-            stmt = connection.createStatement();
-            stmt.execute("INSERT INTO softwarica_quiz.username (user,score) " + "VALUES('" + SoftwaricaQuiz.username + "', '" + score + ")");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                stmt.close();
-                connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    public void insertDB() {
+        new Score("", 0).setVisible(true);
     }
+
+
+
 }
+
 
 
